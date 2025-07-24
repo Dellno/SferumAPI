@@ -38,7 +38,7 @@ class MessageService:
         except requests.exceptions.RequestException as e:
             raise RuntimeError(f"An error occurred during the request to {url}: {e}")
 
-    def get_history(self, peer_id: int, count: int, offset: int) -> MessagesHistory:
+    def get_history(self, peer_id: int, count: int, offset: int, start_cmid: int = randint(1, 1000) -> MessagesHistory:
         """Получение истории сообщений"""
         try:
             url = "https://api.vk.me/method/messages.getHistory?v=5.241"
@@ -46,7 +46,7 @@ class MessageService:
             data = {
                 "access_token": self.__user.access_token,
                 "peer_id": peer_id,
-                "start_cmid": randint(1, 1000),
+                "start_cmid": start_cmid,
                 "count": count,
                 "offset": offset,
                 "extended": "1",
